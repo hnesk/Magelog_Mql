@@ -1,0 +1,10 @@
+<?php
+/* @var $this Mage_Adminhtml_Block_Template */
+?>
+<form method="post" action="<?php echo $this->getUrl('*/*/index'); ?>">
+    <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+    <ul class="console">
+        <?php echo $this->getChildHtml(); ?>
+    </ul>
+    <input type="submit" />
+</form>

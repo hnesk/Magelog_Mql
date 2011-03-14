@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Mage
+ * @package     Magelog_Mql
+ * @copyright   March 1 2011 jk
+ */
+-->
+<config>
+    <modules>
+        <Magelog_Mql>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Magelog_Mql>
+    </modules>
+</config>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @category    Mage
+ * @package     Magelog_Mql
+ * @copyright   March 1 2011 jk
+ */
+-->
+<config>
+    <modules>
+        <Magelog_Mql>
+            <version>0.1.0</version>
+        </Magelog_Mql>
+    </modules>
+    <admin>
+        <routers>
+            <mql>
+                <use>admin</use>
+                <args>
+                    <module>Magelog_Mql</module>
+                    <frontName>mql</frontName>
+                </args>
+            </mql>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <mql>
+                    <file>mql.xml</file>
+                </mql>
+            </updates>
+        </layout>
+        <menu>
+            <system>
+                <children>
+                    <mql module="mql">
+                        <title>MQL</title>
+                        <action>mql/index/index</action>
+                        <children>
+                            <index>
+                                <title>Dashboard</title>
+                                <action>mql/index/index</action>
+                            </index>
+                            <console>
+                                <title>Console</title>
+                                <action>mql/console/index</action>
+                            </console>
+                        </children>
+
+                    </mql>
+                </children>
+            </system>
+        </menu>
+    </adminhtml>
+    <global>
+        <models>
+            <mql>
+                <class>Magelog_Mql_Model</class>
+            </mql>
+        </models>
+        <helpers>
+            <mql>
+                <class>Magelog_Mql_Helper</class>
+            </mql>
+        </helpers>
+        <blocks>
+            <mql>
+                <class>Magelog_Mql_Block</class>
+            </mql>
+        </blocks>
+    </global>
+</config>

@@ -1,0 +1,21 @@
+<?php
+/* @var $this Magelog_Mql_Block_Modelchooser */
+?>
+<li id="item_model">
+    <dl<?php echo $this->hasError() ? ' class="error"' : '';?>>
+        <dt><label for="model"><?php echo $this->__('Model Collection');?></label></dt>
+        <dd>
+            <input type="text" id="model" name="model" value="<?php echo $this->getModelname(); ?>"/>
+            <div class="autocomplete" id="model_list" style="display:none"></div>
+            <script type="text/javascript">
+                new Autocompleter.Local('model', 'model_list', <?php echo $this->helper('core')->jsonEncode($this->getModelHints()); ?>, {
+                    minChars:1,
+                    //afterUpdateElement:function (element, selected) {alert(element.value);}
+                });
+            </script>
+        </dd>
+        <?php if ($this->hasError()): ?>
+            <dd class="error"><?php echo $this->htmlEscape($this->getMessage()); ?>
+        <?php endif; ?>
+    </dl>
+</li>
