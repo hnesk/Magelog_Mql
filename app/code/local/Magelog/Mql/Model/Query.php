@@ -48,6 +48,13 @@ class Magelog_Mql_Model_Query extends Varien_Object /* Mage_Core_Model_Abstract*
 
     /**
      *
+     * @var Mage_Core_Model_Mysql4_Collection_Abstract
+     */
+    protected $_collection;
+
+
+    /**
+     *
      * @var Magelog_Mql_Model_Modellister
      */
     protected $lister;
@@ -123,18 +130,18 @@ class Magelog_Mql_Model_Query extends Varien_Object /* Mage_Core_Model_Abstract*
         return $attributes;
     }
 
-
-
     /**
      *
      * @return Mage_Core_Model_Mysql4_Collection_Abstract
      */
     public function getCollection() {
-        $collection = $this->getModel()->getCollection();
-        if ($collection instanceof Mage_Eav_Model_Entity_Collection_Abstract) {
-            $collection->addAttributeToSelect($this->getAttributes());
+        if (!$this->_collection) {
+            $this->_collection = $this->getModel()->getCollection();
+            if ($this->_collection instanceof Mage_Eav_Model_Entity_Collection_Abstract) {
+                $this->_collection->addAttributeToSelect($this->getAttributes());
+            }
         }
-        return $collection;
+        return $this->_collection;
     }
 
     /**
@@ -163,7 +170,6 @@ class Magelog_Mql_Model_Query extends Varien_Object /* Mage_Core_Model_Abstract*
         $this->message = $message;
         throw new Magelog_Mql_Model_Query_Exception($message);
     }
-
     
 }
 ?>

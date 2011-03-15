@@ -14,7 +14,6 @@ class Magelog_Mql_IndexController extends Mage_Adminhtml_Controller_Action{
     protected function _initAction() {
         $this->_title($this->__('System'))->_title($this->__('MQL'));
 
-
         $this->loadLayout()
             ->_setActiveMenu('system/mql/index')
             ->_addBreadcrumb($this->__('System'), $this->__('System'))

@@ -5,7 +5,7 @@
     <dl<?php echo $this->hasError() ? ' class="error"' : '';?>>
         <dt><label for="attributes">Attributes</label></dt>
         <dd>
-            <input type="text" id="attributes" name="attributes" value="<?php echo implode(', ',$this->getSelectedAttributes()); ?>" maxlength="50" />
+            <input type="text" id="attributes" name="attributes" value="<?php echo implode(', ',$this->getSelectedAttributes()); ?>" size="200" />
             <div class="autocomplete" id="attributes_list" style="display:none"></div>            
             <!--
             <br />

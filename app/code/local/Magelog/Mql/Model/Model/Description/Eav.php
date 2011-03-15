@@ -48,8 +48,6 @@ class Magelog_Mql_Model_Model_Description_Eav extends Magelog_Mql_Model_Model_De
             }
             $entityTableDescriptions = $this->getResource()->getReadConnection()->describeTable($this->getResource()->getEntityTable());
             $entityTableKeys = $this->getResource()->getReadConnection()->getIndexList($this->getResource()->getEntityTable());
-            print_r($entityTableKeys);
-            die();
 
             foreach ($this->getResource()->getDefaultAttributes() as $attributeCode) {
                 $attribute = $this->getResource()->getAttribute($attributeCode);
