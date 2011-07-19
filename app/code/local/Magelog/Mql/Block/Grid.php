@@ -75,7 +75,7 @@ class Magelog_Mql_Block_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edituser', array('id' => $row->getUserId()));
+        return $this->getUrl('adminhtml/catalog_product/edit', array('id' => $row->getId()));
     }
 
 }

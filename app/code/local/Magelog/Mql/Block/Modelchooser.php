@@ -32,11 +32,35 @@ class Magelog_Mql_Block_Modelchooser extends Mage_Adminhtml_Block_Abstract {
         return $this->getQuery()->getModelname();
     }
 
-    
-    public function getModelHints() {
-        $models = Mage::getModel('mql/modellister')->getModelsWithCollections();
-        return array_keys($models);
+    public function getModelClass() {
+        return $this->getQuery()->getModelClass();
     }
+
+
+    public function getCollectionname() {
+        return $this->getQuery()->getCollection();
+    }
+
+
+    /**
+     * @return Magelog_Mql_Model_Mysql4_Model_Collection 
+     */
+    public function getModelCollection() {
+        $modelCollection = Mage::getModel('mql/model')->getCollection();
+        /* @var $modelCollection Magelog_Mql_Model_Mysql4_Model_Collection */
+        $modelCollection->addInstantiableFilter()->addCollectionFilter()->orderByName();
+        return $modelCollection;
+    }
+
+    public function getModelHints() {
+        $data = array();
+        foreach ($this->getModelCollection() as $model) {
+            /* @var $model Magelog_Mql_Model_Model */
+            $data[] = $model->getClass();
+        }
+        return $data;
+    }
+
 
 }
 ?>

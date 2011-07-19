@@ -24,20 +24,28 @@ class Magelog_Mql_IndexController extends Mage_Adminhtml_Controller_Action{
 
 
     protected function _initQuery() {
+        if ($this->getRequest()->getParam('recreate')) {
+            Mage::getModel('mql/model_indexer')->createModelCollection()->recreate();
+        }
+
+        Mage::getModel('mql/model_indexer')->createModelCollection();
+
         $session = Mage::getSingleton('core/session');
         /* @var $session Mage_Core_Model_Session */
         $query = $session->hasMqlQuery() ? $session->getMqlQuery() : Mage::getModel('mql/query');
         /* @var $query Magelog_Mql_Model_Query */
-        
+        #Mage::log($this->getRequest()->getPost());
         if ($this->getRequest()->getParam('model')) {
             try {
-                $query->setModelname($this->getRequest()->getParam('model'));
+                $query->setModelClass($this->getRequest()->getParam('model'));
             } catch (Magelog_Mql_Model_Query_Exception $e) {
                 $session->addError($e->getMessage());
             }
         }
 
-        if ($this->getRequest()->getParam('attributes')) {
+        if ($this->getRequest()->getParam('attribute_select')) {
+            $query->setAttributes($this->getRequest()->getParam('attribute_select'));
+        } else if ($this->getRequest()->getParam('attributes')) {
             $query->setAttributes($this->getRequest()->getParam('attributes'));
         }
 

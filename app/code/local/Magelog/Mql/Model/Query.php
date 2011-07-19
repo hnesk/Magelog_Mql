@@ -42,6 +42,12 @@ class Magelog_Mql_Model_Query extends Varien_Object /* Mage_Core_Model_Abstract*
 
     /**
      *
+     * @var string
+     */
+    protected $class;
+
+    /**
+     *
      * @var array
      */
     protected $attributes;
@@ -53,31 +59,47 @@ class Magelog_Mql_Model_Query extends Varien_Object /* Mage_Core_Model_Abstract*
     protected $_collection;
 
 
-    /**
-     *
-     * @var Magelog_Mql_Model_Modellister
-     */
-    protected $lister;
 
-    protected function _construct() {
-        $this->lister = Mage::getModel('mql/modellister');
+    protected function _construct() {        
         $this->state = self::STATE_NO_MODEL;
         $this->attributes = array();
     }
 
     public function setModelname($modelName) {
-        $allowedModels = $this->lister->getModelsWithCollections();
         $this->modelName = $modelName;
         $this->model = Mage::getModel($modelName);
         if (!$this->model) {
             $this->error(self::STATE_NO_MODEL,'Model "'.$modelName.'" not found');
         }
-        if (!isset($allowedModels[$modelName])) {
-            $this->model = null;
-            $this->error(self::STATE_NO_MODEL,'Model "'.$modelName.'" has no collection');
-        }
         $this->state = self::STATE_OK;
     }
+
+    public function setModelClassByShortName($shortName) {
+        Mage::getResourceModel($shortName);
+    }
+
+    public function setModelClass($class) {
+        $model = Mage::getModel('mql/model')->loadByClass($class);
+        $this->_collection = null;
+        /* @var $model Magelog_Mql_Model_Model */
+        if ($model->getId()) {
+            $this->class = $class;
+            $this->modelName = $model->getName();
+            $this->model = $model->getInstance();
+            if (!$this->model) {
+                $this->error(self::STATE_NO_MODEL,'Model "'.$modelName.'" not found');
+            }
+            $this->state = self::STATE_OK;
+        } else {
+            $this->state = self::STATE_NO_MODEL;
+        }
+    }
+
+    public function getModelClass() {
+        return $this->class;
+    }
+
+
 
     
     /**
@@ -85,8 +107,43 @@ class Magelog_Mql_Model_Query extends Varien_Object /* Mage_Core_Model_Abstract*
      * @return Mage_Core_Model_Abstract
      */
     public function getModel() {
-        return $this->model;
+        $model = $this->model;
+        if ($this->model instanceof Varien_Data_Collection) {
+            return $model->getNewEmptyItem();
+        } else {
+            return $model;
+        }
+        
     }
+
+    /**
+     *
+     * @return Varien_Data_Collection
+     */
+    protected function _getCollection() {
+        $model = $this->model;
+        if ($model instanceof Varien_Data_Collection) {
+            return $model;
+        } else {
+            return $model->getCollection();
+        }
+    }
+
+    /**
+     *
+     * @return Mage_Core_Model_Mysql4_Collection_Abstract
+     */
+    public function getCollection() {
+        if (!$this->_collection) {
+            $this->_collection = $this->_getCollection();
+            if ($this->_collection instanceof Mage_Eav_Model_Entity_Collection_Abstract) {
+                $this->_collection->addAttributeToSelect($this->getAttributes());
+            }
+        }
+        return $this->_collection;
+    }
+
+
 
     /**
      *
@@ -130,19 +187,6 @@ class Magelog_Mql_Model_Query extends Varien_Object /* Mage_Core_Model_Abstract*
         return $attributes;
     }
 
-    /**
-     *
-     * @return Mage_Core_Model_Mysql4_Collection_Abstract
-     */
-    public function getCollection() {
-        if (!$this->_collection) {
-            $this->_collection = $this->getModel()->getCollection();
-            if ($this->_collection instanceof Mage_Eav_Model_Entity_Collection_Abstract) {
-                $this->_collection->addAttributeToSelect($this->getAttributes());
-            }
-        }
-        return $this->_collection;
-    }
 
     /**
      * @var Magelog_Mql_Model_Model_Description

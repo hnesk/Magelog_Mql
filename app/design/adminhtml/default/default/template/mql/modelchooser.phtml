@@ -5,7 +5,15 @@
     <dl<?php echo $this->hasError() ? ' class="error"' : '';?>>
         <dt><label for="model"><?php echo $this->__('Model Collection');?></label></dt>
         <dd>
-            <input type="text" id="model" name="model" value="<?php echo $this->getModelname(); ?>"/>
+            <select id="model" name="model">
+                <?php foreach ($this->getModelCollection() as $model): /* @var $model Magelog_Mql_Model_Model */ ?>
+                        <option value="<?php echo $this->escapeHtml($model->getClass()); ?>" <?php echo $model->getClass() == $this->getModelClass() ? ' selected="selected"' : ''?>>
+                                <?php echo $this->escapeHtml($model->getPrefix().'/'.$model->getShortname()); ?>
+                        </option>
+                <?php endforeach; ?>
+            </select>
+            <!--
+            <input type="text" id="model" size="50" name="model" value="<?php echo $this->getModelname(); ?>"/>
             <div class="autocomplete" id="model_list" style="display:none"></div>
             <script type="text/javascript">
                 new Autocompleter.Local('model', 'model_list', <?php echo $this->helper('core')->jsonEncode($this->getModelHints()); ?>, {
@@ -13,6 +21,7 @@
                     //afterUpdateElement:function (element, selected) {alert(element.value);}
                 });
             </script>
+            -->
         </dd>
         <?php if ($this->hasError()): ?>
             <dd class="error"><?php echo $this->htmlEscape($this->getMessage()); ?>

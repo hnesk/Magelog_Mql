@@ -46,7 +46,7 @@ class Magelog_Mql_Tests_Model_Model_Description_EavTest extends PHPUnit_Framewor
 
     public function testAttributeDescriptions() {
         $attributes = $this->description->getAttributes();
-        print_r($attributes);
+        #print_r($attributes);
     }
 
     

@@ -67,6 +67,5 @@ class Magelog_Mql_Block_Attributechooser extends Mage_Adminhtml_Block_Abstract {
     public function getAttributehints() {
         return array_keys($this->getAttributes());
     }
-
 }
 ?>

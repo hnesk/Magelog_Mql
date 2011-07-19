@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layout>
     <mql_index_index>
-        <reference name="content">
-            
+        <reference name="content">            
             <block type="adminhtml/template" name="mql.console" as="mql.console"  template="mql/console.phtml">
                 <block type="mql/modelchooser" name="mql.modelchooser" as="mql.modelchooser"  template="mql/modelchooser.phtml" />
-                <block type="mql/attributechooser" name="mql.attributechooser" as="mql.attributechooser"  template="mql/attributechooser.phtml" />
+                <block type="mql/attributechooser" name="mql.attributechooser" as="mql.attributechooser"  template="mql/attributechooser.phtml" /> 
             </block>
             <!--<block type="mql/info" name="mql.info" as="mql.info" template="mql/info.phtml" />-->
-            <block type="mql/sql" name="mql.sql" as="mql.sql" template="mql/sql.phtml" />
+            <!--<block type="mql/sql" name="mql.sql" as="mql.sql" template="mql/sql.phtml" />-->
 
-            <block type="mql/grid" name="mql.grid" as="mql.grid"   />
-            
+            <block type="mql/grid" name="mql.grid" as="mql.grid"   />           
         </reference> 
     </mql_index_index>
 </layout>

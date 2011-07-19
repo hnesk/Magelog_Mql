@@ -65,7 +65,6 @@ abstract class Magelog_Mql_Model_Model_Description {
         } else {
             throw new InvalidArgumentException(get_class($model).' is not a resource model');
         }
-        $e = new Mage_Directory_Model_Region();
         return $description->setModel($model);
     }
 }

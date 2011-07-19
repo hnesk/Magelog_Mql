@@ -9,7 +9,7 @@
 <config>
     <modules>
         <Magelog_Mql>
-            <version>0.1.0</version>
+            <version>0.1.1</version>
         </Magelog_Mql>
     </modules>
     <admin>
@@ -57,8 +57,24 @@
         <models>
             <mql>
                 <class>Magelog_Mql_Model</class>
+                <resourceModel>mql_mysql4</resourceModel>
             </mql>
+            <mql_mysql4>
+                <class>Magelog_Mql_Model_Mysql4</class>
+                <entities>
+                    <model>
+                        <table>mql_model</table>
+                    </model>
+                </entities>
+            </mql_mysql4>
         </models>
+        <resources>
+            <mql_setup>
+                <setup>
+                    <module>Magelog_Mql</module>
+                </setup>
+            </mql_setup>
+        </resources>
         <helpers>
             <mql>
                 <class>Magelog_Mql_Helper</class>

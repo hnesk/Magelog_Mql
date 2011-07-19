@@ -5,17 +5,18 @@
     <dl<?php echo $this->hasError() ? ' class="error"' : '';?>>
         <dt><label for="attributes">Attributes</label></dt>
         <dd>
-            <input type="text" id="attributes" name="attributes" value="<?php echo implode(', ',$this->getSelectedAttributes()); ?>" size="200" />
-            <div class="autocomplete" id="attributes_list" style="display:none"></div>            
-            <!--
-            <br />
-            <select multiple="multiple" size="5" name="attribute_select[]" id="attribute_select">
+            <select multiple="multiple" size="15" name="attribute_select[]" id="attribute_select">
             <?php $selected = array_flip($this->getSelectedAttributes()); ?>
             <?php foreach ($this->getAttributes() as $attributeCode => $attributeDescription): ?>
                 <option <?php echo isset($selected[$attributeCode]) ? ' selected="selected"' : '';?>><?php echo $attributeCode; ?></option>
             <?php endforeach; ?>
             </select>
-            -->
+
+            <!--
+            <input type="text" id="attributes" name="attributes" value="<?php echo implode(', ',$this->getSelectedAttributes()); ?>" size="200" />
+            <div class="autocomplete" id="attributes_list" style="display:none"></div>
+            <br />
+
             <script type="text/javascript">
                 new Autocompleter.Local('attributes', 'attributes_list', <?php echo $this->helper('core')->jsonEncode($this->getAttributeHints()); ?>, {
                     minChars:0,
@@ -28,6 +29,7 @@
                     //afterUpdateElement:function (element, selected) {alert(element.value);}
                 });
             </script>
+            -->
         </dd>
         <?php if ($this->hasError()): ?>
             <dd class="error"><?php echo $this->htmlEscape($this->getMessage()); ?>
